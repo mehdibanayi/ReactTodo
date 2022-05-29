@@ -1,2 +1,2 @@
-# ReactTodo
+# Todo 
 React Training
