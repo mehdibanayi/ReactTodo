@@ -1,6 +1,6 @@
 import React , { useContext } from 'react';
 import AuthContext from '../../Context/auth';
-import {Link,useLocation} from 'react-router-dom'
+import {Link,NavLink,useLocation} from 'react-router-dom'
 
 function Header() {
     const location = useLocation()
@@ -19,17 +19,24 @@ function Header() {
                         </a>
                         <ul className='nav'>
                         <li className='nav-item'>
-                                <Link className='nav-link active text-white' to="/" >Home</Link>
+                                <NavLink className='nav-link active text-white' to="/" >Home</NavLink>
                             </li>    
                             <li className='nav-item'>
-                                <Link className='nav-link text-white' to={{
+                                <NavLink className='nav-link text-white' to={{
                                     pathname : "/about",
                                     search : "?name=heesam",
                                     hash : '#mypage'
-                                }} >About</Link>
+                                }} >About</NavLink>
                             </li>    
                             <li className='nav-item'>
-                                <Link className='nav-link text-white' to={`/contact-us`+location.search} >Contact US</Link>
+                                <NavLink className={({isActive})=>{
+                                    let classname='nav-link';
+                                    if(isActive ) 
+                                        classname  += ' text-danger'
+                                    else
+                                        classname  += ' text-white'
+                                    return classname
+                                }}  to={`/contact-us`+location.search} >Contact US</NavLink>
                             </li>    
                         </ul>
                     </div>
