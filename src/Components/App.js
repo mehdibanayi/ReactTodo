@@ -9,6 +9,8 @@ import Header from './Layouts/Header';
 import Home from './../Routes/Home'
 import AboutPage from './../Routes/About'
 import ContactUs from './../Routes/ContactUs'
+import SingleTodo from './../Routes/Todos/Single'
+
 
 // Import Contexts
 import TodosContext from './../Context/todos';
@@ -39,7 +41,11 @@ function App(props){
                                 <Routes>
                                     <Route path='/' element={<Home />} />
                                     <Route path='/about' element={<AboutPage />} />
-                                    <Route path='/contact-us' element={<ContactUs />} />
+                                    <Route path='/contact-us' element={<ContactUs />}>
+                                        <Route path='form' element={<h2> Form for Contact</h2>} />      
+                                        <Route path='address' element={<h2> Address for Contact</h2>} />    
+                                    </Route>
+                                    <Route path='/todos/:id' element={<SingleTodo />} />
                                 </Routes>
                             </div>
                         </TodosContext.Provider>

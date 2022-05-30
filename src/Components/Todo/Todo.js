@@ -2,7 +2,7 @@ import React , { useState , useContext } from 'react'
 import EditTodo from './EditTodo';
 import TodosContext from '../../Context/todos';
 import todoApi from './../../Api/todos';
-
+import { Link } from 'react-router-dom'
 
 function Todo(props) {
     const { item } = props;
@@ -47,9 +47,9 @@ function Todo(props) {
                     ? (
                         <div className="col-6 mb-2">
                             <div className="d-flex justify-content-between align-items-center border rounded p-3">
-                                <div>
+                                <Link to={`/todos/${item.key}`}>
                                     {item.text}
-                                </div>
+                                </Link>
                                 <div>
                                     {
                                         btnloading
