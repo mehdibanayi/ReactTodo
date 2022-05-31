@@ -1,4 +1,4 @@
-import React , { useReducer  } from 'react';
+import React , { useReducer , lazy ,Suspense } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css'
 
@@ -7,9 +7,6 @@ import Header from './Layouts/Header';
 
 // Import Routts
 import Home from './../Routes/Home'
-import AboutPage from './../Routes/About'
-import ContactUs from './../Routes/ContactUs'
-import SingleTodo from './../Routes/Todos/Single'
 
 
 // Import Contexts
@@ -20,6 +17,12 @@ import AuthContext from './../Context/auth';
 import AppReducer from './../Reducers/appReducer'
 
 import {Routes,Route } from 'react-router-dom'
+
+const AboutPage = lazy(()=>import("./../Routes/About"))
+const ContactUs = lazy(()=>import("./../Routes/ContactUs"))
+const SingleTodo = lazy(()=>import("./../Routes/Todos/Single"))
+const NotFound = lazy(()=>import("./../Routes/NotFound"))
+
 
 function App(props){
     const [state,dispatch] = useReducer(AppReducer,{
@@ -40,12 +43,29 @@ function App(props){
                                 <Header />
                                 <Routes>
                                     <Route path='/' element={<Home />} />
-                                    <Route path='/about' element={<AboutPage />} />
-                                    <Route path='/contact-us' element={<ContactUs />}>
+                                    <Route path='/about' element={
+                                        <Suspense fallback={<h2>Loading......</h2>}>
+                                            <AboutPage />
+                                        </Suspense>
+                                    } />
+                                    <Route path='/contact-us' element={
+                                         <Suspense fallback={<h2>Loading......</h2>}>
+                                             <ContactUs />
+                                         </Suspense>
+                                   }>
                                         <Route path='form' element={<h2> Form for Contact</h2>} />      
                                         <Route path='address' element={<h2> Address for Contact</h2>} />    
                                     </Route>
-                                    <Route path='/todos/:id' element={<SingleTodo />} />
+                                    <Route path='/todos/:id' element={
+                                        <Suspense fallback={<h2>Loading......</h2>}>
+                                            <SingleTodo />
+                                        </Suspense>
+                                    } />
+                                    <Route path='*' element={
+                                         <Suspense fallback={<h2>Loading......</h2>}>
+                                            <NotFound />
+                                        </Suspense>                             
+                                    } />
                                 </Routes>
                             </div>
                         </TodosContext.Provider>
